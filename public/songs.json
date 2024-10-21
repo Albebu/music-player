@@ -1,0 +1,18 @@
+[
+    {
+        "id": 0,
+        "title": "Awware",
+        "artist_name": "Double-F the King",
+        "source": "Free Music Archive",
+        "license_type": "CC BY-SA",
+        "song_path": "./songs/Double-F the King - Awware.mp3"
+    },
+    {
+        "id": 1,
+        "title": "Did You see My Budgie (TP 062)",
+        "artist_name": "Till Paradiso",
+        "source": "Free Music Archive",
+        "license_type": "CC BY-SA",
+        "song_path": "./songs/Till Paradiso - Did You see My Budgie (TP 062).mp3"
+    }
+]
