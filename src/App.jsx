@@ -5,6 +5,9 @@ const App = () => {
   const [songs, setSongs] = useState([]);
   const [loading, setLoading] = useState(true);
   const soundRef = useRef(null); // Holds the Howl instance
+
+  const [playingSong, setPlayingSong] = useState(null);
+  const [currentTime, setCurrentTime] = useState(0);
   
   const [loop, setLoop] = useState(false);
   const [rate, setRate] = useState(1);
@@ -54,7 +57,7 @@ const App = () => {
       }
     };
   
-    const interval = setInterval(updateCurrentTime, 1000);
+    const interval = setInterval(updateCurrentTime, 500);
 
     soundRef.current.on('end', () => {
       clearInterval(interval);
@@ -86,6 +89,7 @@ const App = () => {
     if (soundRef.current) {
       soundRef.current.rate(newRate); 
     }
+    console.log(soundRef.current.rate());
   };
 
   return (
@@ -95,10 +99,15 @@ const App = () => {
         {songs.map(song => (
           <li key={song.id}>
             <strong>{song.title}</strong> by {song.artist_name}
-            <button onClick={() => handlePlayButton(song.song_path)}>Play</button>
+            <button onClick={() => handlePlayButton(song.song_path)}>{soundRef.current ? 'Stop' : 'Play'}</button>
           </li>
         ))}
       </ul>
+      <section>
+        <h2>Now Playing</h2>
+        <p>{playingSong}</p>
+        <p>Current Time: {currentTime.toFixed(0)}</p>
+      </section>
       <aside>
         <label htmlFor="volume">Volume</label>
         <input 
@@ -111,15 +120,15 @@ const App = () => {
         />
         <button onClick={handleLoopButton}>{loop ? 'Do not loop' : 'Loop'}</button>
         <label htmlFor="rate">Rate</label>
-        <input 
-          id="rate"
-          name="range"
-          type="range"
-          step={0.1}
-          min={0.5}
-          max={4}
-          value={rate}
-          onChange={(e) => handleRateChange(e.target.value)} />
+        <select onChange={(e) => {handleRateChange(e.target.value)}} name="rate" id="rate">
+          <option value="0.5">x 0.5</option>
+          <option value="1.0">x 1.0</option>
+          <option value="1.25">x 1.25</option>
+          <option value="1.5">x 1.5</option>
+          <option value="2.0">x 2.0</option>
+          <option value="2.5">x 2.5</option>
+          <option value="3.0">x 3.0</option>
+        </select>
       </aside>
     </>
   );
