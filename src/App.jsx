@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import SongList from './components/SongList';
 import NowPlaying from './components/NowPlaying';
 import Controls from './components/Controls';
+import Nav from './components/Nav';
 
 const App = () => {
   const [songs, setSongs] = useState([]);
@@ -13,6 +14,7 @@ const App = () => {
   const [duration, setDuration] = useState(0); // To store the duration of the song
   const [loop, setLoop] = useState(false);
   const [rate, setRate] = useState(1);
+  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
     const fetchSongs = async () => {
@@ -31,45 +33,59 @@ const App = () => {
     };
 
     fetchSongs();
+
   }, []);
 
+  
   const handlePlayButton = (song) => {
+    console.log(song.id)
     // Stop the current sound if it's playing
-    if (soundRef.current) {
-      soundRef.current.stop();
+    if (song.id === playingSongIndex) {
+      if (soundRef.current && !isPaused) {
+        soundRef.current.pause();
+        setIsPaused(true);
+      } else if (soundRef.current && isPaused) {
+        soundRef.current.play();
+        setIsPaused(false);
     }
-
-    // Create a new Howl instance
-    soundRef.current = new Howl({
-      src: [songs[song.id].song_path],
-      html5: true,
-      loop: loop,
-      rate: rate,
-      onload: () => {
-        setDuration(soundRef.current.duration()); // Set the duration once the sound is loaded
-      },
-      onend: () => {
-        soundRef.current = null; // Clear the reference when the song ends
-        setCurrentTime(0); // Reset current time when song ends
-        playNextSong(); // Play the next song
-      },
-    });
-
-    setPlayingSongIndex(song.id);
-    soundRef.current.play();
-
-    // Update currentTime every 500ms
-    const updateCurrentTime = () => {
+    } else {
       if (soundRef.current) {
-        setCurrentTime(soundRef.current.seek());
+        soundRef.current.stop();
       }
-    };
+        // Create a new Howl instance
+      soundRef.current = new Howl({
+        src: [songs[song.id].song_path],
+        html5: true,
+        loop: loop,
+        rate: rate,
+        onload: () => {
+          setDuration(soundRef.current.duration()); // Set the duration once the sound is loaded
+        },
+        onend: () => {
+          soundRef.current = null; // Clear the reference when the song ends
+          setCurrentTime(0); // Reset current time when song ends
+          playNextSong(); // Play the next song
+        },
+      });
 
-    const interval = setInterval(updateCurrentTime, 500);
+      setPlayingSongIndex(song.id);
+      soundRef.current.play();
 
-    // Cleanup interval when the component unmounts or the song ends
-    return () => clearInterval(interval);
+      // Update currentTime every 500ms
+      const updateCurrentTime = () => {
+        if (soundRef.current) {
+          setCurrentTime(soundRef.current.seek());
+        }
+      };
+
+      const interval = setInterval(updateCurrentTime, 500);
+
+      // Cleanup interval when the component unmounts or the song ends
+      return () => clearInterval(interval);
+      }
   };
+
+  console.log(songs)
 
   const playNextSong = () => {
     const nextIndex = (playingSongIndex + 1) % songs.length;
@@ -108,27 +124,32 @@ const App = () => {
   }
 
   return (
-    <>
-      <h1>Song List</h1>
+    <div className='grid grid-rows-[auto_1fr_auto] h-screen'>
+    <Nav />
+    <div className='grid grid-cols-2'>
       <SongList 
         songs={songs} 
         playingSongIndex={playingSongIndex} 
-        handlePlayButton={handlePlayButton} 
+        handlePlayButton={handlePlayButton}
+        isPaused={isPaused}
       />
       <NowPlaying 
         song={songs[playingSongIndex]} 
         currentTime={currentTime} 
         duration={duration} 
         handleSeek={handleSeek} 
+        audioElement={soundRef.current} // Asegúrate de pasar el elemento de audio aquí
       />
-      <Controls 
-        handleVolumeChange={handleVolumeChange} 
-        handleLoopButton={handleLoopButton} 
-        handleRateChange={handleRateChange} 
-        loop={loop} 
-        rate={rate} 
-      />
-    </>
+
+    </div>
+    <Controls 
+      handleVolumeChange={handleVolumeChange} 
+      handleLoopButton={handleLoopButton} 
+      handleRateChange={handleRateChange} 
+      loop={loop} 
+      rate={rate} 
+    />
+    </div>
   );
 };
 

@@ -1,6 +1,6 @@
 const Controls = ({ handleVolumeChange, handleLoopButton, handleRateChange, loop, rate }) => {
     return (
-      <aside>
+      <section>
         <label htmlFor="volume">Volume</label>
         <input 
           id="volume" 
@@ -23,7 +23,7 @@ const Controls = ({ handleVolumeChange, handleLoopButton, handleRateChange, loop
           <option value="2.5">x 2.5</option>
           <option value="3.0">x 3.0</option>
         </select>
-      </aside>
+      </section>
     );
   };
   
