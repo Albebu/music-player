@@ -1,5 +1,7 @@
 # Sebs
 
+![Logo-Sebs](https://github.com/user-attachments/assets/7b2864f2-3e3c-43da-8d75-51692ffe6e84)
+
 **Sebs** is a web-based music player that allows you to stream free music from Free Music Archive (FMA). Built with React and Howler.js, this app offers advanced playback controls, customizable playlists, and an equalizer to fine-tune your music listening experience.
 
 ## Features
