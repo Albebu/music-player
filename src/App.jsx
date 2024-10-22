@@ -1,14 +1,16 @@
 import { Howl, Howler } from 'howler';
 import { useEffect, useState, useRef } from 'react';
+import SongList from './components/SongList';
+import NowPlaying from './components/NowPlaying';
+import Controls from './components/Controls';
 
 const App = () => {
   const [songs, setSongs] = useState([]);
   const [loading, setLoading] = useState(true);
   const soundRef = useRef(null); // Holds the Howl instance
-
-  const [playingSong, setPlayingSong] = useState(null);
+  const [playingSongIndex, setPlayingSongIndex] = useState(null);
   const [currentTime, setCurrentTime] = useState(0);
-  
+  const [duration, setDuration] = useState(0); // To store the duration of the song
   const [loop, setLoop] = useState(false);
   const [rate, setRate] = useState(1);
 
@@ -26,51 +28,53 @@ const App = () => {
       } finally {
         setLoading(false);
       }
-    }
+    };
 
     fetchSongs();
   }, []);
 
-  const handlePlayButton = (src) => {
-    // Check if there is an active Howl instance
+  const handlePlayButton = (song) => {
+    // Stop the current sound if it's playing
     if (soundRef.current) {
       soundRef.current.stop();
     }
 
     // Create a new Howl instance
     soundRef.current = new Howl({
-      src: [src],
+      src: [songs[song.id].song_path],
       html5: true,
       loop: loop,
-      rate: rate, 
+      rate: rate,
+      onload: () => {
+        setDuration(soundRef.current.duration()); // Set the duration once the sound is loaded
+      },
       onend: () => {
-        soundRef.current = null; // Clear the reference when song ends
-      }
+        soundRef.current = null; // Clear the reference when the song ends
+        setCurrentTime(0); // Reset current time when song ends
+        playNextSong(); // Play the next song
+      },
     });
 
-    setPlayingSong(src);
+    setPlayingSongIndex(song.id);
     soundRef.current.play();
 
+    // Update currentTime every 500ms
     const updateCurrentTime = () => {
       if (soundRef.current) {
         setCurrentTime(soundRef.current.seek());
       }
     };
-  
+
     const interval = setInterval(updateCurrentTime, 500);
 
-    soundRef.current.on('end', () => {
-      clearInterval(interval);
-      setCurrentTime(0); 
-    });
-
-    // Clean up interval on unmount or change
+    // Cleanup interval when the component unmounts or the song ends
     return () => clearInterval(interval);
   };
 
-  if (loading) {
-    return <div>Loading songs...</div>; 
-  }
+  const playNextSong = () => {
+    const nextIndex = (playingSongIndex + 1) % songs.length;
+    handlePlayButton(nextIndex);
+  };
 
   const handleVolumeChange = (volume) => {
     Howler.volume(volume);
@@ -89,47 +93,41 @@ const App = () => {
     if (soundRef.current) {
       soundRef.current.rate(newRate); 
     }
-    console.log(soundRef.current.rate());
   };
+
+  const handleSeek = (e) => {
+    const newTime = e.target.value;
+    setCurrentTime(newTime);
+    if (soundRef.current) {
+      soundRef.current.seek(newTime); // Seek the audio to the new time
+    }
+  };
+
+  if (loading) {
+    return <div>Loading songs...</div>; 
+  }
 
   return (
     <>
       <h1>Song List</h1>
-      <ul>
-        {songs.map(song => (
-          <li key={song.id}>
-            <strong>{song.title}</strong> by {song.artist_name}
-            <button onClick={() => handlePlayButton(song.song_path)}>{soundRef.current ? 'Stop' : 'Play'}</button>
-          </li>
-        ))}
-      </ul>
-      <section>
-        <h2>Now Playing</h2>
-        <p>{playingSong}</p>
-        <p>Current Time: {currentTime.toFixed(0)}</p>
-      </section>
-      <aside>
-        <label htmlFor="volume">Volume</label>
-        <input 
-          id="volume" 
-          name="volume" 
-          type="range" 
-          step={0.05} 
-          max={1} 
-          onChange={(e) => handleVolumeChange(e.target.value)}
-        />
-        <button onClick={handleLoopButton}>{loop ? 'Do not loop' : 'Loop'}</button>
-        <label htmlFor="rate">Rate</label>
-        <select onChange={(e) => {handleRateChange(e.target.value)}} name="rate" id="rate">
-          <option value="0.5">x 0.5</option>
-          <option value="1.0">x 1.0</option>
-          <option value="1.25">x 1.25</option>
-          <option value="1.5">x 1.5</option>
-          <option value="2.0">x 2.0</option>
-          <option value="2.5">x 2.5</option>
-          <option value="3.0">x 3.0</option>
-        </select>
-      </aside>
+      <SongList 
+        songs={songs} 
+        playingSongIndex={playingSongIndex} 
+        handlePlayButton={handlePlayButton} 
+      />
+      <NowPlaying 
+        song={songs[playingSongIndex]} 
+        currentTime={currentTime} 
+        duration={duration} 
+        handleSeek={handleSeek} 
+      />
+      <Controls 
+        handleVolumeChange={handleVolumeChange} 
+        handleLoopButton={handleLoopButton} 
+        handleRateChange={handleRateChange} 
+        loop={loop} 
+        rate={rate} 
+      />
     </>
   );
 };
