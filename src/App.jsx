@@ -125,31 +125,33 @@ const App = () => {
 
   return (
     <div className='grid grid-rows-[auto_1fr_auto] h-screen'>
-    <Nav />
-    <div className='grid grid-cols-2'>
-      <SongList 
-        songs={songs} 
-        playingSongIndex={playingSongIndex} 
-        handlePlayButton={handlePlayButton}
-        isPaused={isPaused}
-      />
-      <NowPlaying 
-        song={songs[playingSongIndex]} 
-        currentTime={currentTime} 
-        duration={duration} 
-        handleSeek={handleSeek} 
-        audioElement={soundRef.current} // Asegúrate de pasar el elemento de audio aquí
-      />
-
-    </div>
-    <Controls 
-      handleVolumeChange={handleVolumeChange} 
-      handleLoopButton={handleLoopButton} 
-      handleRateChange={handleRateChange} 
-      loop={loop} 
-      rate={rate} 
+  <Nav />
+  <div className='grid grid-cols-2 h-full'> {/* Asegúrate de que este contenedor tiene h-full */}
+    <SongList 
+      songs={songs} 
+      playingSongIndex={playingSongIndex} 
+      handlePlayButton={handlePlayButton}
+      isPaused={isPaused}
     />
-    </div>
+    <NowPlaying 
+      song={songs[playingSongIndex]} 
+      currentTime={currentTime} 
+      duration={duration} 
+      handleSeek={handleSeek} 
+      audioElement={soundRef.current} // Asegúrate de pasar el elemento de audio aquí
+    />
+  </div>
+  <Controls 
+    handleVolumeChange={handleVolumeChange} 
+    handleLoopButton={handleLoopButton} 
+    handleRateChange={handleRateChange} 
+    loop={loop} 
+    rate={rate}
+    isPaused={isPaused}
+    handlePlayButton={handlePlayButton}
+  />
+</div>
+
   );
 };
 
