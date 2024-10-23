@@ -38,7 +38,6 @@ const App = () => {
 
   
   const handlePlayButton = (song) => {
-    console.log(song.id)
     // Stop the current sound if it's playing
     if (song.id === playingSongIndex) {
       if (soundRef.current && !isPaused) {
@@ -85,15 +84,13 @@ const App = () => {
       }
   };
 
-  console.log(songs)
-
   const playNextSong = () => {
     const nextIndex = (playingSongIndex + 1) % songs.length;
     handlePlayButton(nextIndex);
   };
 
   const handleVolumeChange = (volume) => {
-    Howler.volume(volume);
+    soundRef.current.volume(volume);
   };
 
   const handleLoopButton = () => {
@@ -149,6 +146,8 @@ const App = () => {
     rate={rate}
     isPaused={isPaused}
     handlePlayButton={handlePlayButton}
+    soundRef={soundRef}
+    setIsPaused={setIsPaused}
   />
 </div>
 

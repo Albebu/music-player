@@ -1,6 +1,21 @@
-const Controls = ({ handleVolumeChange, handleLoopButton, handleRateChange, loop, rate, handlePlayButton, isPaused }) => {
+const Controls = ({ handleVolumeChange, handleLoopButton, handleRateChange, loop, rate, handlePlayButton, isPaused, setIsPaused, soundRef }) => {
+    const handleButton = () => {
+        console.log("entro en el boton")
+        console.log(soundRef.current)
+        if (soundRef.current) {
+            if (!isPaused) {
+                soundRef.current.stop();
+                setIsPaused(true);
+            }
+            else {
+                soundRef.current.play();
+                setIsPaused(false);
+            }
+        }
+    }
+    
     return (
-      <section className="w-full h-16 bg-pakistanGreen text-cornsilk flex items-center px-4 fixed bottom-0">
+      <section className="w-full h-[4.5em] bg-strongBlue text-cornsilk flex items-center px-4 fixed bottom-0">
           <div className="flex items-center gap-4">
               <button onClick={handleLoopButton}>
                   {loop ? 'Do not loop' : 'Loop'}
@@ -19,8 +34,8 @@ const Controls = ({ handleVolumeChange, handleLoopButton, handleRateChange, loop
               </div>
           </div>
           <div className="flex-grow flex justify-center">
-              <button onClick={() => handlePlayButton(song)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                  {isPaused ? 'Stop' : 'Play'}
+              <button onClick={handleButton} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                  {!isPaused ? 'Stop' : 'Play'}
               </button>
           </div>
           <div className="flex flex-col items-center">

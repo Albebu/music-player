@@ -4,11 +4,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        mossGreen: "#606C38",
-        pakistanGreen: "#283618",
-        cornsilk: "#FEFAE0",
-        earthYellow: "#DDA15E",
-        tigerEye: "#BC6C25",
+        strongBlue: "#4464AD",
+        ligthBlue: "#A4B0F5",
+        orange: "#F58F29",
       },
     },
   },
