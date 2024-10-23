@@ -1,2 +1,6 @@
 Paleta de colores a usar: https://coolors.co/606c38-283618-fefae0-dda15e-bc6c25 
 como hacer un visualizer de musica: https://www.youtube.com/watch?v=f0dwg99EVfo 
+Hacer shuffle para canciones aleatorias.
+hacer buscador de canciones.
+Hacer que se vea la letra de las canciones
+Hazer ecualizador de musica, para cambiar como suena la música
