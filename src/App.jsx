@@ -11,8 +11,8 @@ const App = () => {
   };
 
   return (
-    <div>
-      <MainContent ></MainContent>
+    <div >
+      <MainContent></MainContent>
       {/*
       {console.log(profile)}
       {profile ? (

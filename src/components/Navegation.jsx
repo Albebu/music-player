@@ -5,7 +5,7 @@ import broswer from '../assets/broswer.svg'
 import home from '../assets/home.svg'
 import Modal from './Modal'; // Importa el componente del modal
 
-const TopBar = ({ profileImage, profileName }) => {
+const Navegation = ({ profileImage, profileName }) => {
     const [isModalVisible, setModalVisible] = useState(false);
 
     const showModal = () => {
@@ -17,20 +17,20 @@ const TopBar = ({ profileImage, profileName }) => {
     };
 
     return (
-        <nav className="bg-black text-white p-4 fixed w-screen">
+        <nav className="bg-black text-white p-2 fixed w-screen">
             <ul className="flex flex-row justify-between items-center">
                 <div>
                     <li>
                         <a href="/">
-                            <img className="w-12" src={spotifyIcon} alt="Spotify Logo" />
+                            <img className="w-8" src={spotifyIcon} alt="Spotify Logo" />
                         </a>
                     </li>
                 </div>
-                <div className="flex flex-row space-x-4 focus-within:outline focus-within:outline-white focus-within:outline-4 focus-within:rounded-full">
-                    <li className="flex items-center bg-[#535353]/40 p-4 rounded-full">
-                        <a href="/" className="flex items-center">
+                <div className="flex flex-row ml-20 space-x-4 focus-within:outline focus-within:outline-white focus-within:outline-4 focus-within:rounded-full">
+                    <li className="flex items-center bg-[#535353]/40 rounded-full p-4">
+                        <a href="/" className="flex items-center ">
                             <Modal modalContent={"Home"} onMouseEnter={showModal} onMouseLeave={hideModal}>
-                                <img src={home} alt="Home" className="w-8" />
+                                <img src={home} alt="Home" className="w-6" />
                             </Modal>
                         </a>
                     </li>
@@ -67,4 +67,4 @@ const TopBar = ({ profileImage, profileName }) => {
     );
 };
 
-export default TopBar;
+export default Navegation;
