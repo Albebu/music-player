@@ -1,0 +1,14 @@
+Users: /me.
+Devuelve toda la información del usuario, como nombre, pais, followers etx..
+
+Top items: /me/top/type
+type puedes ser o tracka o artists. podemos especificar el tiempo, el limite y un offset
+
+Follow playlist: /playlists/playlist_id/followers
+hacemos que el usuario siga una playlist
+
+Unfollow playlist : /playlist/playlist_id/followers
+hacemos que el usuario deje de seguir una playlist
+
+get followers artist: /me/following
+mlstramos los artistas a los que sigue el usuario, podemos ajustar el limite
