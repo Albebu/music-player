@@ -8,7 +8,7 @@ const MainContent = ({ profileImage, profileName }) => {
     return(
         <>
             <Navegation profileImage={profileImage} profileName={profileName}></Navegation>
-            <div className="grid grid-cols-[1fr_4fr_1fr]">
+            <div className="grid grid-cols-[1fr_3fr_1fr]">
                 <LeftBar></LeftBar>
                 <Content></Content>
                 <Rightbar></Rightbar>
