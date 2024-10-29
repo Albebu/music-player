@@ -3,8 +3,11 @@ import Navegation from './Navegation'
 import Content from "./Content";
 import Rightbar from "./RightBar";
 import Controls from "./Controls";
+import { useEffect, useState } from "react";
 
 const MainContent = ({ profileImage, profileName }) => {
+    
+
     return(
         <>
             <Navegation profileImage={profileImage} profileName={profileName}></Navegation>

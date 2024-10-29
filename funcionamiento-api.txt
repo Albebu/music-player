@@ -12,3 +12,11 @@ hacemos que el usuario deje de seguir una playlist
 
 get followers artist: /me/following
 mlstramos los artistas a los que sigue el usuario, podemos ajustar el limite
+
+albums que necesito:
+
+obtener canciones total. 
+obtener el tipo de album.
+nombre album.
+imagen album.
+artista album.
