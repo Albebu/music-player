@@ -18,4 +18,26 @@
   .progress-bar::-ms-thumb {
     @apply w-3 h-3 rounded-full bg-green-500 shadow-md;
   }
+
+  @layer components {
+    /* Estilos de la barra de desplazamiento */
+    ::-webkit-scrollbar {
+        width: 12px;
+        height: 12px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #4B5563; /* Color del pulgar (gray-700) */
+        border-radius: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #121212; /* Color del track (gray-200) */
+        border-radius: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #374151; /* Color del pulgar al pasar el mouse (gray-800) */
+    }
+}
   
