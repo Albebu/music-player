@@ -36,6 +36,8 @@ const LeftBar = () => {
         }
     }, [data]);
 
+    
+
     const displayData = () => {
         return albumInformation.map(album => (
             <Album
