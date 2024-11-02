@@ -1,0 +1,74 @@
+[
+    {
+        "id": 1,
+        "title": "Herman's Habit",
+        "artist": "Justin Hurwitz",
+        "album": "La La Land (Original Motion Picture Soundtrack)",
+        "duration": 111, 
+        "image": "../../src/assets/songImages/Herman's Habit.jpeg"
+    },
+    {
+        "id": 2,
+        "title": "Brat",
+        "artist": "Delilah Bon",
+        "album": "Brat",
+        "duration": 186, 
+        "image": "../../src/assets/songImages/Brat.jpeg"
+    },
+    {
+        "id": 3,
+        "title": "Club classics featuring bb trickz",
+        "artist": "Charlie xcx Bb trickz",
+        "album": "Brat and it's completely different but also still brat",
+        "duration": 174, 
+        "image": "../../src/assets/songImages/Club classics featuring bb trickz.jpeg"
+    },
+    {
+        "id": 4,
+        "title": "Lying from You",
+        "artist": "Linkin Park",
+        "album": "Meteora",
+        "duration": 175, 
+        "image": "../../src/assets/songImages/Lying from You.jpeg"
+    },
+    {
+        "id": 5,
+        "title": "LA PRESA",
+        "artist": "NATHY PELUSO",
+        "album": "GRASA",
+        "duration": 216,
+        "image": "../../src/assets/songImages/LA PRESA.jpeg"
+    },
+    {
+        "id": 6,
+        "title": "Isla Velde",
+        "artist": "Cazzu",
+        "album": "Nena Trampa",
+        "duration": 196, 
+        "image": "../../src/assets/songImages/Isla Velde.jpeg"
+    },
+    {
+        "id": 7,
+        "title": "Rock 'n' Roll Suicide - 2012 Remaster",
+        "artist": "David Bowie",
+        "album": "The Rise and Fall of Ziggy Stardust and the Spiders from Mars (2012 Remaster)",
+        "duration": 196, 
+        "image": "../../src/assets/songImages/Rock 'n' Roll Suicide - 2012 Remaster.jpeg"
+    },
+    {
+        "id": 8,
+        "title": "Moonlight Magic",
+        "artist": "Ashnikko",
+        "album": "WEEDKILLER",
+        "duration": 152, 
+        "image": "../../src/assets/songImages/Moonlight Magic.jpeg"
+    },
+    {
+        "id": 9,
+        "title": "Palabra Prohibida",
+        "artist": "Samuraï",
+        "album": "Palabra Prohibida",
+        "duration": 176, 
+        "image": "../../src/assets/songImages/Palabra Prohibida.jpeg"
+    }
+]

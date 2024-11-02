@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "name": "Billie Eilish",
+        "image": "../../src/assets/artistImages/Billie eilish.webp"
+    },
+    {
+        "id": 2,
+        "name": "Ashnikko",
+        "image": "../../src/assets/artistImages/Ashnikko.jpeg"
+    },
+    {
+        "id": 3,
+        "name": "Eminem",
+        "image": "../../src/assets/artistImages/Eminem.jpeg"
+    },
+    {
+        "id": 4,
+        "name": "Madonna",
+        "image": "../../src/assets/artistImages/Madonna.jpeg"
+    },
+    {
+        "id": 5,
+        "name": "Violadores del Verso",
+        "image": "../../src/assets/artistImages/Violadores del Verso.jpeg"
+    },
+    {
+        "id": 6,
+        "name": "Lana del Rey",
+        "image": "../../src/assets/artistImages/Lana del Rey.jpeg"
+    }
+]

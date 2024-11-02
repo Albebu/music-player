@@ -1,22 +1,34 @@
+// src/App.js
 import React, { useState } from 'react';
-import Login from './components/User-Auth/Login.jsx';
-import MainContent from './components/MainContent';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import NavBar from './components/NavBar/NavBar';
+import LeftSeccion from './components/LeftSeccion/LeftSeccion';
+import Controls from './components/Controls/Controls';
+import Home from './pages/Home';
+import AlbumDetail from './pages/AlbumDetail';
+import SongDetails from './pages/SongDetails';
 
 const App = () => {
-  const clientId = "3b8ae22e5ed444a9a65377e81574f55d";
-  const [accesToken, setAccessToken] = useState(" "); // cambiar a null que si no no va
-  console.log("Acces token", accesToken);
-
-  /*      {accesToken ? (
-        <>
-          <MainContent ></MainContent>
-        </>
-      ) :*/
+  const [songInformation, setSongInformation] = useState({});
 
   return (
-    <div className='bg-black'>
-      {accesToken ? <MainContent></MainContent> : null /*<Login clientId={clientId} accesToken={accesToken} setAccessToken={setAccessToken} />*/}
-    </div>
+    <Router>
+      <div className="bg-black h-screen grid grid-rows-[1fr_auto]">
+        <div className="grid grid-cols-[1fr_3fr]">
+          <div className="flex flex-col">
+            <NavBar />
+            <LeftSeccion />
+          </div>
+          <div className="overflow-auto">
+            <Routes>
+              <Route path="/" element={<Home setSongInformation={setSongInformation}/>} />
+              <Route path="/album/:id" element={<AlbumDetail />} />
+              <Route path="/song/:id" element={<SongDetails />} />
+            </Routes>
+          </div>
+        </div>
+      </div>
+    </Router>
   );
 };
 
