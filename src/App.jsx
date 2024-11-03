@@ -13,21 +13,20 @@ const App = () => {
 
   return (
     <Router>
-      <div className="bg-black h-screen grid grid-rows-[1fr_auto]">
-        <div className="grid grid-cols-[1fr_3fr]">
-          <div className="flex flex-col">
+      <div className="bg-black h-screen w-full overflow-x-hidden min-w-[640px]">
+        <div className="flex flex-col">
             <NavBar />
-            <LeftSeccion />
-          </div>
-          <div className="overflow-auto">
-            <Routes>
-              <Route path="/" element={<Home setSongInformation={setSongInformation}/>} />
-              <Route path="/album/:id" element={<AlbumDetail />} />
-              <Route path="/song/:id" element={<SongDetails />} />
-            </Routes>
-          </div>
+            <div className='flex flex-row'>
+                <LeftSeccion />
+                <Routes>
+                    <Route path="/" element={<Home setSongInformation={setSongInformation}/>} />
+                    <Route path="/album/:id" element={<AlbumDetail />} />
+                    <Route path="/song/:id" element={<SongDetails />} />
+                </Routes>
+            </div>
         </div>
-      </div>
+    </div>
+
     </Router>
   );
 };

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import images from '../../assets/images-control';
 import AudioPlayer from "../AudioPlayer/AudioPlayer";
 
-const Controls = ({ handleLikeButton, isLiked, songInformation }) => {
+const Controls = ({ handleLikeButton, isLiked, songInformation, soundRef }) => {
     const [isPaused, setIsPaused] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [totalTime, setTotalTime] = useState(0);
@@ -38,7 +38,8 @@ const Controls = ({ handleLikeButton, isLiked, songInformation }) => {
                     isPaused={isPaused}
                     setCurrentTime={setCurrentTime}
                     volume={volume}
-                    currentTime={currentTime} // Pasamos currentTime como prop
+                    currentTime={currentTime}
+                    soundRef={soundRef} // Pasamos currentTime como prop
                 />
             )}
             <div className="flex flex-row justify-between items-center h-24 ml-4 mr-4">

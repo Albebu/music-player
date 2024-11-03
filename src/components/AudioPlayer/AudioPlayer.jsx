@@ -2,8 +2,8 @@
 import { useEffect, useRef } from 'react';
 import { Howl } from 'howler';
 
-const AudioPlayer = ({ src, isPaused, setCurrentTime, volume, currentTime }) => {
-    const soundRef = useRef(null);
+const AudioPlayer = ({ src, isPaused, setCurrentTime, volume, currentTime, soundRef }) => {
+    
 
     useEffect(() => {
         const cleanup = () => {

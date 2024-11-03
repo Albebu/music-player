@@ -7,20 +7,28 @@ const Album = ({ album, onAlbumClick }) => {
     };
 
     return(
-        <article onClick={handleClick} className="flex flex-row hover:bg-[#2A2A2A] hover:rounded align-middle">
+        <article 
+            onClick={handleClick} 
+            className="flex flex-row hover:bg-[#2A2A2A] hover:rounded align-middle"
+        >
             <div className="w-16 h-16 flex items-center justify-center">
-                <img className="w-12 h-12 object-cover rounded" src={album.album_image} alt="" />
+                <img 
+                    className="w-12 h-12 object-cover rounded" 
+                    src={album.album_image} 
+                    alt={album.album_name} 
+                />
             </div>
-            <div className="flex flex-col ml-4">
-               <div>
-                    <p className="text-white font-[500] truncate max-w-xs">{album.album_name}</p>
-               </div>
+            <div className="flex flex-col ml-4 hidden md:block">
+                <div>
+                    <p className="text-white font-[500] truncate max-w-[14rem]">{album.album_name}</p>
+                </div>
                 <div className="flex flex-row space-x-2 text-[#aba9a9]">
                     <span>{album.album_type}</span>
                     <span>{album.album_artist}</span>
                 </div>
             </div>
         </article>
+
     );
 };
 

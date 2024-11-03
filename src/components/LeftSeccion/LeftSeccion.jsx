@@ -1,6 +1,5 @@
-// src/components/LeftSeccion/LeftBar.js
 import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate
+import { useNavigate } from 'react-router-dom';
 import Album from "./Album";
 import images from '../../assets/images-leftBar';
 import Button from "../Button";
@@ -8,9 +7,9 @@ import Button from "../Button";
 const LeftSeccion = () => {
     const [data, setData] = useState({});
     const [albumInformation, setAlbumInformation] = useState([]);
-    const [loading, setLoading] = useState(true); // Estado para cargar
-    const [error, setError] = useState(null); // Estado para errores
-    const navigate = useNavigate(); // Usa el hook useNavigate
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     const fetchData = async () => {
         try {
@@ -20,12 +19,12 @@ const LeftSeccion = () => {
             }
             const jsonData = await response.json();
             setData(jsonData);
-            setError(null); // Resetea el error si la carga es exitosa
+            setError(null);
         } catch (error) {
-            setError(error.message); // Establece el mensaje de error
+            setError(error.message);
             console.error('Error fetching data:', error);
         } finally {
-            setLoading(false); // Cambia el estado de carga al final
+            setLoading(false);
         }
     };
 
@@ -39,15 +38,15 @@ const LeftSeccion = () => {
                 album_id: item.album.id,
                 album_type: item.album.album_type,
                 album_name: item.album.name,
-                album_image: item.album.images[0]?.url, // Manejo de posibles errores
-                album_artist: item.album.artists[0]?.name // Manejo de posibles errores
+                album_image: item.album.images[0]?.url,
+                album_artist: item.album.artists[0]?.name
             }));
             setAlbumInformation(newAlbumInformation);
         }
     }, [data]);
 
     const handleAlbumClick = (albumId) => {
-        navigate(`/album/${albumId}`); // Navega a la ruta del álbum usando su ID
+        navigate(`/album/${albumId}`);
     };
 
     const displayData = () => {
@@ -55,35 +54,50 @@ const LeftSeccion = () => {
             <Album
                 key={album.album_id}
                 album={album}
-                onAlbumClick={() => handleAlbumClick(album.album_id)} // Pasa el ID del álbum
+                onAlbumClick={() => handleAlbumClick(album.album_id)}
             />
         ));
     };
 
     return (
-        <nav className="mr-2 ml-2 rounded-lg bg-[#121212] flex flex-col h-[calc(100vh-165px)] mt-20">
-            <div className="m-2 flex flex-col mb-4">
-                <div className="text-white justify-between flex mb-4">
+        <div className="">
+            {/* Small Screen Navigation */}
+            <nav className="ml-2 mr-2 rounded-lg bg-[#121212] flex flex-col h-[calc(100vh-4rem)] md:hidden w-16 overflow-y-scroll">
+                <img className="w-8" src={images.library} alt="" />
+                <section className="overflow-y-scroll">
+                    {loading ? (
+                        <p className="text-white text-center">Cargando...</p>
+                    ) : error ? (
+                        <p className="text-red-500 text-center">{error}</p>
+                    ) : (
+                        displayData()
+                    )}
+                </section>
+            </nav>
+
+            {/* Large Screen Navigation */}
+            <nav className="hidden md:flex l-2 mr-2 md:flex-col rounded-lg bg-[#121212] h-[calc(100vh-4rem)] w-96 overflow-y-scroll">
+                <div className="text-white justify-between flex">
                     <img className="w-8" src={images.library} alt="" />
                     <img className="w-8" src={images.plus} alt="" />
                 </div>
-                <div className="text-white justify-between flex mr-4 ml-4">
+                <div className="text-white justify-between flex pr-4 pl-4 pb-4">
                     <Button>PlayList</Button>
                     <Button>Artist</Button>
                     <Button>Albums</Button>
                     <Button>Podcast & Shows</Button>
                 </div>
-            </div>
-            <section className="overflow-y-scroll">
-                {loading ? (
-                    <p className="text-white text-center">Cargando...</p> // Mensaje de carga
-                ) : error ? (
-                    <p className="text-red-500 text-center">{error}</p> // Mensaje de error
-                ) : (
-                    displayData() // Muestra los álbumes
-                )}
-            </section>
-        </nav>
+                <section className="overflow-y-scroll">
+                    {loading ? (
+                        <p className="text-white text-center">Cargando...</p>
+                    ) : error ? (
+                        <p className="text-red-500 text-center">{error}</p>
+                    ) : (
+                        displayData()
+                    )}
+                </section>
+            </nav>
+        </div>
     );
 };
 

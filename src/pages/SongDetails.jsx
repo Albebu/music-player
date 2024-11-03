@@ -1,16 +1,21 @@
 // src/pages/SongDetail.js
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import Controls from '../components/Controls/Controls';
+import AudioPlayer from '../components/AudioPlayer/AudioPlayer';
+import Equalizer from '../components/Equalizer'; // Importa el ecualizador
 
 const SongDetail = () => {
-    const { id } = useParams(); // Obtiene el ID de la canción de la URL
+    const { id } = useParams();
     const [song, setSong] = useState(null);
+    const soundRef = useRef(null);
+    const [isPaused, setIsPaused] = useState(true);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [volume, setVolume] = useState(100);
 
     useEffect(() => {
         const fetchSongDetails = async () => {
             try {
-                // Simula una llamada a la API para obtener los detalles de la canción
                 const response = await fetch('/songsData/songsData.json');
                 const data = await response.json();
                 
@@ -24,12 +29,10 @@ const SongDetail = () => {
         fetchSongDetails();
     }, [id]);
 
-    console.log(song);
-
-    if (!song) return <div>Cargando...</div>; // Manejo de carga
+    if (!song) return <div>Cargando...</div>;
 
     return (
-        <div className="flex flex-col h-screen pt-20 pb-4 bg-[#121212] text-white"> {/* Contenedor principal */}
+        <div className="flex flex-col h-screen pt-20 pb-4 bg-[#121212] text-white">
             <div className="h-[25%] flex flex-row items-center border-2 border-black gap-4">
                 <img src={song.image} className='w-36 ml-4' alt={song.title} />
                 <div className='flex flex-col'>
@@ -41,7 +44,16 @@ const SongDetail = () => {
                     </div>
                 </div>
             </div>
-            <Controls songInformation={song}></Controls>
+            <Controls songInformation={song} soundRef={soundRef} setIsPaused={setIsPaused} />
+            <Equalizer soundRef={soundRef} /> {/* Añadir el ecualizador */}
+            <AudioPlayer 
+                src={song.src} 
+                isPaused={isPaused} 
+                setCurrentTime={setCurrentTime} 
+                volume={volume} 
+                currentTime={currentTime} 
+                soundRef={soundRef} 
+            />
         </div>
     );
 };
